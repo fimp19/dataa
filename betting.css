@@ -1,0 +1,38 @@
+    * {
+        margin: 0px;
+        padding: 0px;
+        text-decoration: none;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #fff;
+      color: #000000;
+    }
+    h2 {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .bet {
+      display: flex;
+      align-items: center;
+      padding: 15px 30px;
+      border-bottom: 1px solid #ddd;
+    }
+    .bet:hover {
+      background: #f9f9f9;
+    }
+    .bet img {
+      width: 50px;       
+      height: 50px;     
+      border-radius: 10px;
+      margin-right: 15px;
+      background: #fff;
+      padding: 5px;
+    }
+    .bet p {
+      font-size: 18px;
+      font-weight: 500;
+    }
