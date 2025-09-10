@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwiftData-Airtime</title>
+    <link rel="stylesheet" href="./data.css">
+    <link rel="shortcut icon" href="./image/SwiftData Logo Design.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <div style="display: flex; margin-bottom: 30px; justify-content: space-between; margin-top: 20px;" class="container">
+    <p>Buy Data</p>
+    <a style="color: white;" href="">History</a>
+    
+  </div>
+
+
+
+  <div class="container">
+    <h2><i  class="fa-solid fa-wifi"></i> Buy Data</h2>
+
+    <!-- Phone Number (auto-filled) -->
+    <label for="phone">Your Phone Number</label>
+    <input type="text" id="phone" readonly>
+
+    <!-- Select Network -->
+    <label for="network" >Select Network Provider</label>
+    <select id="network" onchange="loadPlans()" required>
+      <option value="">-- Choose Network --</option>
+      <option value="MTN">MTN</option>
+      <option value="Airtel">Airtel</option>
+      <option value="Glo">Glo</option>
+      <option value="9mobile">9mobile</option>
+    </select>
+
+    <!-- Data Plans (will be filled dynamically) -->
+<div class="plans" id="plans"></div>
+
+    <a href="index.html">⬅ Back to Home</a>
+  </div>
+
+ <footer>
+ <div id="bottom" class="container-fluid">
+     <a href="" class="icon-boxx">
+       <i style="font-size: 17px;" class="fa-solid fa-house"></i>
+        <span>Home</span>
+     </a>
+
+        <a href=""  class="icon-boxx">
+         <i style="font-size: 17px;" class="fa-solid fa-user-group"></i>
+        <span>Referral</span>
+        </a>
+
+        <a href=""  class="icon-boxx">
+        <i style="font-size: 17px;" class="fa-solid fa-user-group"></i>
+        <span>Contact-Us</span>
+        </a>
+
+        <a href="./terms.html"  class="icon-boxx">
+        <i style="font-size: 17px;" class="fa-solid fa-file"></i>
+        <span>Terms</span>
+        </a>
+    
+</div>
+ </footer>
+
+  <script>
+    let savedUser = JSON.parse(localStorage.getItem("user"));
+
+    if (savedUser && savedUser.phone) {
+      document.getElementById("phone").value = savedUser.phone;
+    } else {
+      alert("No user found. Please sign in again.");
+      window.location.href = "signin.html";
+    }
+
+    // Different data plans for each network
+    const dataPlans = {
+      "MTN": [
+        { plan: "1.5GB (2days)", price: 400 },
+        { plan: "3.2GB(2days)", price: 600 },
+        { plan: "5GB(1week)", price: 1500 },
+        { plan: "10GB(1week)", price: 3000 }
+      ],
+      "Airtel": [
+        { plan: "2GB (2days)", price: 500 },
+        { plan: "3.2GB (2days)", price: 600 },
+        { plan: "6GB(1 week)", price: 1500 },
+        { plan: "15GB(1 week)", price: 3000 }
+      ],
+      "Glo": [
+        { plan: "1GB", price: 200 },
+        { plan: "5GB", price: 600 },
+        { plan: "15GB", price: 2000 },
+        { plan: "20GB", price: 3000 }
+      ],
+      "9mobile": [
+        { plan: "1GB", price: 600 },
+        { plan: "2GB", price: 1100 },
+        { plan: "5GB", price: 2500 },
+        { plan: "10GB", price: 4600 }
+      ]
+    };
+
+    function loadPlans() {
+      let network = document.getElementById("network").value;
+      let plansDiv = document.getElementById("plans");
+      plansDiv.innerHTML = "";
+
+      if (!network) return;
+
+      dataPlans[network].forEach(p => {
+        let div = document.createElement("div");
+        div.className = "plan";
+        div.innerText = `${p.plan} – ₦${p.price}`;
+        div.onclick = () => buyData(network, p.plan, p.price);
+        plansDiv.appendChild(div);
+      });
+    }
+
+ function buyData(network, plan, price) {
+  let phone = savedUser.phone;
+
+  // Save order details in localStorage
+  localStorage.setItem("order", JSON.stringify({
+    network, plan, price, phone
+  }));
+
+  // Redirect to checkout page
+  window.location.href = "payment.html";
+}
+
+
+  </script>
+
+</body>
+</html>

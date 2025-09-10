@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - SwiftData</title>
+    <link rel="stylesheet" href="./signup.css">
+    <link rel="shortcut icon" href="./image/SwiftData Logo Design.png" type="image/x-icon">
+</head>
+<body>
+    <div class="mother">
+        <div class="image">
+            <img style="width: 350px;" src="./image/ChatGPT_Image_Sep_7__2025__12_42_12_PM-removebg-preview (1).png" alt="Logo">
+        </div>
+
+        <h2>Register on SwiftData</h2>
+
+        <form id="signupForm">
+            <label for="fullname">Full Name:</label>
+            <input type="text" id="fullname" placeholder="Enter your full name" required><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Enter your email" required><br>
+
+            <label for="username">Username:</label>
+            <input type="text" id="username" placeholder="Enter your username" required><br>
+
+            <label for="phone">Phone No:</label>
+            <input type="number" id="phone" placeholder="Enter your phone number" required><br>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="Password" required><br>
+
+            <label for="confirm-password">Confirm Password:</label>
+            <input type="password" id="confirm-password" placeholder="Confirm your password" required><br>
+
+            <div id="errorMsg" class="error" style="display:none; color:red;">Passwords do not match</div>
+
+            <button type="submit">Create Account</button>
+        </form>
+        <p>Already have an account? <a href="./signin.html">Sign in</a></p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        const form = document.getElementById('signupForm');
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirm-password');
+        const errorMsg = document.getElementById('errorMsg');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            let fullname = document.getElementById("fullname").value.trim();
+            let username = document.getElementById("username").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let phone = document.getElementById("phone").value.trim();
+            let pass = password.value;
+
+            if (pass !== confirmPassword.value) {
+                errorMsg.style.display = 'block';
+                return;
+            } else {
+                errorMsg.style.display = 'none';
+            }
+
+            // Save user in localStorage
+            localStorage.setItem("user", JSON.stringify({ fullname, username, email, phone, password: pass }));
+
+           Swal.fire({ icon:'success', title:'Congratulations', text:'Account Successfully Created.' })
+            .then(()=>{
+            
+            window.location.href = 'signin.html';
+            }) 
+        });
+    </script>
+</body>
+</html>
