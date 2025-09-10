@@ -113,11 +113,11 @@
       localStorage.removeItem("order");
 
     //   alert("✅ Payment confirmed! Redirecting to homepage...");
-    //   window.location.href = "index.html";
+    //   window.location.href = "home.html";
         Swal.fire({ icon:'success', title:'Payment Confirmed', text:'Return to home.' })
             .then(()=>{
             //  localStorage.setItem('loggedIn','false');
-            window.location.href = 'index.html';
+            window.location.href = 'home.html';
             }) 
     }
 

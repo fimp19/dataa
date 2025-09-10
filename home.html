@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./image/SwiftData Logo Design.png" type="image/x-icon">
+    <link rel="stylesheet" href="home.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>SwiftData-Home</title>
+</head>
+<body>
+
+<!-- <div id="top" class="container">
+    <h1 ><i style="font-size: 26px;" class="fas fa-user-circle"></i> <span id="greeting">Welcome!</span></h1>
+    <p id="details"></p>
+    <i style="font-size: 26px;" class="fa-solid fa-headset"></i>
+    <i style="font-size: 26px;" class="fa-solid fa-bell"></i>
+    <button onclick="logout()">Logout</button>
+</div>
+ --------------------------------- -->
+<!-- 
+<div id="top-2" class="container">
+    <div class="left">
+        <p class="p11" >Wallet Balance <span><i class="fa-solid fa-eye"></i></span></p> 
+        
+        <p style="color: white; font-size: 30px; font-weight: 900;">₦ 0.00</p>
+    </div>
+    <div class="rght">
+        <p style="text-align: right; color: white;">History</p>
+        <button id="btn">Fund Wallet</button>
+    </div>
+</div> --> 
+
+<div id="top" class="container">
+    <h1>
+        <i style="font-size: 26px;" class="fas fa-user-circle"></i> 
+        <span id="greeting">Welcome!</span>
+    </h1>
+    <p id="details"></p>
+    <i style="font-size: 26px;" class="fa-solid fa-headset"></i>
+    <i style="font-size: 26px;" class="fa-solid fa-bell"></i>
+    <button onclick="logout()">Logout</button>
+</div>
+<!-- -------------------------------------- -->
+ <div id="fundModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Fund Wallet</h2>
+    <label for="fundAmount">Enter Amount:</label>
+    <input type="number" id="fundAmount" placeholder="₦ Amount" required>
+    <button id="proceedPayment">Proceed to Payment</button>
+  </div>
+</div>
+<!-- --------------------------------- -->
+
+<div id="top-2" class="container">
+    <div class="left">
+        <p class="p11">Wallet Balance <span><i class="fa-solid fa-eye"></i></span></p> 
+        <p id="walletBalance" style="color: white; font-size: 30px; font-weight: 900;">₦ 0.00</p>
+    </div>
+    <div class="rght">
+        <p style="text-align: right; color: white;">History</p>
+        <button id="btn" onclick="fundWallet()">Fund Wallet</button>
+    </div>
+</div>
+<!-- ---------------------------------------- -->
+ <div class="container">
+    <div class="top">
+        <a href="./data.html"  class="icon-box">
+        <i  class="fa-solid fa-wifi"></i>
+        <span>Buy Data</span>
+        </a>
+
+        <a href="./airtime.html"  class="icon-box">
+        <i  class="fa-solid fa-signal"></i>
+        <span>Buy Airtime</span>
+        </a>
+
+        <a href=""  class="icon-box">
+        <i  class="fa-solid fa-headset"></i>
+        <span>Contact-Us</span>
+        </a>
+    </div>
+
+    <div class="top">
+        <a href=""  class="icon-box">
+       <i class="fa-solid fa-futbol"></i>
+        <span>Betting</span>
+        </a>
+
+        <a href=""  class="icon-box">
+        <i class="fa-solid fa-building-columns"></i>
+        <span>Loan</span>
+        </a>
+
+        <a href=""  class="icon-box">
+        <i  class="fa-solid fa-user-group"></i>
+        <span>Invite & Earn</span>
+        </a>
+    </div>
+ </div>
+ <!-- --------------------------------------- -->
+
+ <footer>
+ <div id="bottom" class="container-fluid">
+     <a href="" class="icon-boxx">
+       <i style="font-size: 17px;" class="fa-solid fa-house"></i>
+        <span>Home</span>
+     </a>
+
+        <a href=""  class="icon-boxx">
+         <i style="font-size: 17px;" class="fa-solid fa-user-group"></i>
+        <span>Referral</span>
+        </a>
+
+        <a href=""  class="icon-boxx">
+        <i style="font-size: 17px;" class="fa-solid fa-user-group"></i>
+        <span>Contact-Us</span>
+        </a>
+
+        <a href="./terms.html"  class="icon-boxx">
+        <i style="font-size: 17px;" class="fa-solid fa-file"></i>
+        <span>Terms</span>
+        </a>
+    
+</div>
+ </footer>
+ 
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    // Get saved user from localStorage
+    let savedUser = JSON.parse(localStorage.getItem("user"));
+
+    if (savedUser) {
+      document.getElementById("greeting").textContent =" " + "Hello, " + savedUser.username ;
+    //   document.getElementById("details").textContent = "Phone umber: " + savedUser.phone;
+    } else {
+      window.location.href = "index.html"; // redirect if not logged in
+    }
+
+  // Logout function
+    function logout(){
+      Swal.fire({ icon:'success', title:'Logged out', text:'You have been signed out.' })
+        .then(()=>{
+          localStorage.setItem('loggedIn','false');
+          window.location.href = 'index.html';
+        })};
+
+    let user = JSON.parse(localStorage.getItem("user"));
+
+  if (!user) {
+    // alert("No user found. Please sign in again.");
+    Swal.fire("Title", "Your message here", "success");
+    window.location.href = "index.html";
+  } else {
+    // Show balance (default 0 if not set)
+    document.getElementById("walletBalance").innerText = `₦ ${user.balance || 0}.00`;
+  }
+
+  // Fund Wallet simulation
+  // function fundWallet() {
+  //   let amount = prompt("Enter amount to fund:");
+  //   amount = parseInt(amount);
+
+  //   if (!amount || amount <= 0) {
+  //     alert("Invalid amount.");
+  //     return;
+  //   }
+
+  //   // Update user balance
+  //   if (!user.balance) user.balance = 0;
+  //   user.balance += amount;
+
+  //   // Save back to localStorage
+  //   localStorage.setItem("user", JSON.stringify(user));
+
+  //   // Update UI
+  //   document.getElementById("walletBalance").innerText = `₦ ${user.balance}.00`;
+
+  //   alert(`₦${amount} added to your wallet successfully!`);
+    
+  // }
+
+  
+  // Fund Wallet onclick
+  // document.getElementById("btn").addEventListener("click", () => {
+  //   let amount = prompt("Enter amount you want to fund:");
+
+  //   if (amount && !isNaN(amount) && amount > 0) {
+  //     // Redirect to NEW payment page with amount
+  //     window.location.href = `fund.html?amount=${amount}`;
+  //   } else {
+  //     alert("Please enter a valid amount.");
+  //   }
+  // });
+  // Modal logic
+  let modal = document.getElementById("fundModal");
+  let openBtn = document.getElementById("btn");
+  let closeBtn = document.querySelector(".close");
+  let proceedBtn = document.getElementById("proceedPayment");
+
+  openBtn.onclick = () => modal.style.display = "flex";
+  closeBtn.onclick = () => modal.style.display = "none";
+
+  // Proceed to payment
+  proceedBtn.onclick = () => {
+    let amount = document.getElementById("fundAmount").value;
+    if (amount && !isNaN(amount) && amount > 0) {
+      window.location.href = `fund.html?amount=${amount}`;
+    } else {
+      alert("Please enter a valid amount.");
+    }
+  };
+
+  // Close modal when clicking outside
+  window.onclick = (event) => {
+    if (event.target === modal) modal.style.display = "none";
+  };
+
+
+  </script>
+</body>
+</html>
