@@ -82,7 +82,7 @@
       }
 
       // Add amount to user balance
-      savedUser.balance = (savedUser.balance || 0) + amount;
+      savedUser.balance = (savedUser.balance || 0);
       localStorage.setItem("user", JSON.stringify(savedUser));
 
       Swal.fire("Success", `₦${amount} has been added to your wallet!`, "success")

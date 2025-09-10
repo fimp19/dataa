@@ -67,11 +67,13 @@
     </div>
 
     <button class="btn-pay" onclick="confirmPayment()">I Have Made Payment</button>
+      <p id="statusMsg" class="mt-3 text-muted"></p>
     <a href="data.html">⬅ Back to Plans</a>
   </div>
 
  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
+    
     let order = JSON.parse(localStorage.getItem("order"));
 
     if (!order) {
@@ -104,7 +106,7 @@
       if (!user.balance) user.balance = 0;
 
       // Add the plan price to balance
-      user.balance += order.price;
+      // user.balance += order.price;
 
       // Save updated user
       localStorage.setItem("user", JSON.stringify(user));
