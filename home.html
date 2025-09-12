@@ -202,6 +202,37 @@
     if (event.target === modal) modal.style.display = "none";
   };
 
+  // --------------------------------
+  document.addEventListener("DOMContentLoaded", () => {
+    let user = JSON.parse(localStorage.getItem("user")) || null;
+
+    if (!user) {
+      window.location.href = "signin.html";
+      return;
+    }
+
+    // Check if first login
+    if (!user.hasLoggedIn) {
+      // Show SweetAlert welcome message
+      Swal.fire({
+        icon: 'success',
+        text: `Hello ${user.username || "User"}, As a new user, you have recieved a 10GB bonus! it will be added on you first purchase`,
+        confirmButtonText: 'Continue'
+      })
+      .then(() => {
+        // Second message after first is confirmed
+        Swal.fire({
+          icon: 'success',
+          text: 'You will also get ₦550 for each person you invite to register through your link!',
+          confirmButtonText: 'Got it'
+        });
+});
+      // Update user so it won’t show again
+      user.hasLoggedIn = true;
+      localStorage.setItem("user", JSON.stringify(user));
+    }
+  });
+
 
   </script>
 </body>
