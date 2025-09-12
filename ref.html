@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Referral Redirect</title>
+  <script>
+    window.onload = function () {
+      // Grab referral code from the query (?ref=...)
+      const params = new URLSearchParams(window.location.search);
+      const refCode = params.get("ref");
+
+      if (refCode) {
+        // Redirect to signup with referral
+        window.location.href = "signup.html?ref=" + encodeURIComponent(refCode);
+      } else {
+        document.body.innerHTML = "<p>No referral code provided.</p>";
+      }
+    };
+  </script>
+</head>
+<body>
+</body>
+</html>

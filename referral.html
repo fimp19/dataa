@@ -77,7 +77,7 @@
   }
 
   // Generate referral link
-  let referralLink = window.location.origin + "/signin.html?ref=" + encodeURIComponent(user.phone);
+  let referralLink = window.location.origin + "/ref.html?ref=" + encodeURIComponent(user.phone);
   user.referralLink = referralLink;
   if (!user.refCount) user.refCount = 0;
   if (!user.refBonus) user.refBonus = 0;
