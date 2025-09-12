@@ -23,7 +23,7 @@
         <div  class="top">
         <div>
             <small>loanable Amount</small>
-            <p>N43,000</p>
+            <p>₦43,000</p>
         </div>
 
         <div>
@@ -32,18 +32,18 @@
         </div>
         </div>
         <p style="font-size: 14px;">Daily Interest <span style="color: red;">0.3%</span></p>
-        <a href=""><button style="border-radius: 15px;">Activate Loan</button></a>
+        <button onclick="loan()" style="border-radius: 15px;">Activate Loan</button>
 
     </div>
 
      <footer>
  <div id="bottom" class="container-fluid">
-     <a href="" class="icon-boxx">
+     <a href="./home.html" class="icon-boxx">
        <i style="font-size: 17px;" class="fa-solid fa-house"></i>
         <span>Home</span>
      </a>
 
-        <a href=""  class="icon-boxx">
+        <a href="./referral.html"  class="icon-boxx">
          <i style="font-size: 17px;" class="fa-solid fa-user-group"></i>
         <span>Referral</span>
         </a>
@@ -61,5 +61,17 @@
 </div>
  </footer>
  
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+ <script>
+    function loan() {
+  Swal.fire({ icon:'error', text:'You are not eligible to activate loan at this time. To qualify, you are required to invite at least 10 people... Please complete this requirement to proceed with your application.' })
+        .then(()=>{
+          window.location.href = 'referral.html';
+        })};
+
+    
+
+
+ </script>
 </body>
 </html>

@@ -11,7 +11,10 @@
       color: #000000;
       background:linear-gradient(135deg,#4e73df,#1cc88a);
       }
-  
+  .page{max-width:900px;
+    margin:36px auto;
+    padding:18px
+}
         
     h2 {
       font-size: 20px;

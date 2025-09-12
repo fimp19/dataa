@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SwiftData - Referral Bonus</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg,#4e73df,#1cc88a);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+    }
+    .referral-box {
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      width: 420px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+    h2 { color: #333; margin-bottom: 20px; }
+    .bonus { font-size: 22px; font-weight: bold; color: #1cc88a; }
+    .link-box {
+      background: #f8f9fc;
+      padding: 10px;
+      border-radius: 10px;
+      margin: 15px 0;
+      font-size: 14px;
+      color: #333;
+      word-wrap: break-word;
+    }
+    .note {
+      font-size: 14px;
+      color: #555;
+      margin-top: 10px;
+    }
+    .btn-whatsapp {
+      background-color: #25D366;
+      color: #fff;
+    }
+    .btn-whatsapp:hover {
+      background-color: #1ebe57;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="referral-box">
+    <h2>Referral Bonus</h2>
+
+    <p><strong>Copy your link and invite your friends.</strong></p>
+    <p class="note">For everybody that registers through your link, you'll earn <span class="bonus">₦450</span>.</p>
+
+    <div id="referralLink" class="link-box">---</div>
+    <button class="btn btn-primary btn-sm" onclick="copyReferral()">📋 Copy Link</button>
+    <a id="whatsappBtn" class="btn btn-whatsapp btn-sm ms-2" target="_blank">💬 Invite via WhatsApp</a>
+
+    <p class="mt-4">People Referred: <strong id="refCount">0</strong></p>
+    <p>Your Bonus: <span class="bonus">₦<span id="refBonus">0</span></span></p>
+
+    <button class="btn btn-success w-100 mt-3" onclick="withdrawBonus()">Withdraw Bonus</button>
+    <a href="home.html" class="btn btn-link mt-3">⬅ Back to Home</a>
+  </div>
+
+<script>
+  // Load user
+  let user = JSON.parse(localStorage.getItem("user")) || {};
+  if (!user.phone) {
+    Swal.fire("No user found","Please login again.","warning").then(()=>{
+      window.location.href = "signin.html";
+    });
+  }
+
+  // Generate referral link
+  let referralLink = window.location.origin + "/signin.html?ref=" + encodeURIComponent(user.phone);
+  user.referralLink = referralLink;
+  if (!user.refCount) user.refCount = 0;
+  if (!user.refBonus) user.refBonus = 0;
+  localStorage.setItem("user", JSON.stringify(user));
+
+  // Show link and stats
+  document.getElementById("referralLink").innerText = referralLink;
+  document.getElementById("refCount").innerText = user.refCount;
+  document.getElementById("refBonus").innerText = user.refBonus;
+
+  // Copy referral link
+  function copyReferral() {
+    navigator.clipboard.writeText(referralLink).then(() => {
+      Swal.fire("Copied!","Referral link copied to clipboard.","success");
+    });
+  }
+
+  // WhatsApp share button
+  document.getElementById("whatsappBtn").href = 
+    "https://wa.me/?text=Join%20SwiftData%20and%20earn%20rewards!%20Register%20here:%20" + encodeURIComponent(referralLink);
+
+  // Withdraw bonus
+  function withdrawBonus() {
+    window.location.href = 'ref.html';
+  }
+</script>
+</body>
+</html>
