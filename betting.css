@@ -9,7 +9,10 @@
       padding: 20px;
       background: #fff;
       color: #000000;
-    }
+      background:linear-gradient(135deg,#4e73df,#1cc88a);
+      }
+  
+        
     h2 {
       font-size: 20px;
       font-weight: bold;
