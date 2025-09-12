@@ -13,7 +13,7 @@ body{background:linear-gradient(135deg,#4e73df,#1cc88a);
 }
 .top{
     display: flex;
-    gap: 340px;
+    justify-content: space-between;
     align-items: center;
 }
 .top p{
@@ -27,4 +27,30 @@ button{
     background-color: rgb(0,60,170);
     border: none;
     color: white;
+}
+.icon-boxx {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+}
+.icon-boxx i {
+      color: black;
+      text-decoration: none;
+}
+     #bottom {
+      background:white;
+      padding: 17px;
+      display: flex;
+      justify-content: space-between;
+      justify-content: space-around;
+      margin-top: 15px;
+      align-items: center;
+      position: fixed;
+      bottom: 0;
+      right: 0;
+    }
+.icon-boxx span{
+    font-size: 14px;
+    color: black;
 }
