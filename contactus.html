@@ -52,7 +52,7 @@
 
       <!-- Submit -->
       <button type="submit" class="btn btn-primary w-100">Send Message</button>
-      <a href="index.html" class="btn btn-link w-100 mt-2">⬅ Back Home</a>
+      <a href="home.html" class="btn btn-link w-100 mt-2">⬅ Back Home</a>
     </form>
   </div>
 
@@ -64,7 +64,7 @@
         title: 'Message Sent!',
         text: 'We will get back to you soon.'
       }).then(() => {
-        e.target.submit();
+       window.location.href = "home.html"; 
       });
     });
   </script>
