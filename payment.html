@@ -78,19 +78,18 @@
       document.getElementById("paymentDetails").innerHTML = "<p>No order found!</p>";
     } else {
       document.getElementById("paymentDetails").innerHTML = `
-        <p><strong>Network:</strong> ${order.network}</p>
-        <p><strong>Plan:</strong> ${order.plan}</p>
-        <p><strong>Price:</strong> ₦${order.price}</p>
-        <p><strong>Phone:</strong> ${order.phone}</p>
+        <p><strong>AMOUNT TO BE DEPOSITED:</strong> ₦${order.price}</p>
+        <p style='text-align: center; font-size: 13px'>Do not transfer above the amount selected</p>
+        
         <hr>
-        <p><strong>Make Payment Using:</strong></p>
+        <p style='text-align: center;'><strong>Make Payment Using:</strong></p>
         <ul>
           <p><strong>Bank Transfer</strong></p>
           <p> Account Number - 8161684083</p>
           <p> Account name - Sulaimon Islamiyat</p>
            <p> Bank name - MOMO</p>
 
-         <span style=" font-size: 11px;"> Amount transferred to the above account will automatically reflect in your wallet.</span>
+         <span style=" font-size: 13px;"> Amount transferred to the above account will automatically reflect on your wallet.</span>
         </ul>
       `;
     }
