@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>SwiftData-Home</title>
+    
 </head>
 <body>
 
@@ -120,7 +121,7 @@
       document.getElementById("greeting").textContent =" " + "Hello, " + savedUser.username ;
     //   document.getElementById("details").textContent = "Phone umber: " + savedUser.phone;
     } else {
-      window.location.href = "index.html"; // redirect if not logged in
+      window.location.href = "signin.html"; // redirect if not logged in
     }
 
   // Logout function
@@ -128,7 +129,7 @@
       Swal.fire({ icon:'success', title:'Logged out', text:'You have been signed out.' })
         .then(()=>{
           localStorage.setItem('loggedIn','false');
-          window.location.href = 'index.html';
+          window.location.href = 'signin.html';
         })};
 
     let user = JSON.parse(localStorage.getItem("user"));
@@ -136,7 +137,7 @@
   if (!user) {
     // alert("No user found. Please sign in again.");
     Swal.fire("Title", "Your message here", "success");
-    window.location.href = "index.html";
+    window.location.href = "signin.html";
   } else {
     // Show balance (default 0 if not set)
     document.getElementById("walletBalance").innerText = `₦ ${user.balance || 0}.00`;

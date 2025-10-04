@@ -1,61 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SwiftData - Sign In</title>
-    <link rel="stylesheet" href="./index.css">
-    <link rel="shortcut icon" href="./image/ChatGPT_Image_Sep_7__2025__12_42_12_PM-removebg-preview (1).png" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to SwiftData</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <div class="mother">
-        <div class="image">
-            <img style="width: 350px;" src="./image/ChatGPT_Image_Sep_7__2025__12_42_12_PM-removebg-preview (1).png" alt="Logo">
-        </div>
+<body class="bg-gray-50 text-gray-800 font-sans">
 
-        <h2>Sign In</h2>
-
-        <form id="signinForm">
-            <label for="login">Username or Email:</label>
-            <input type="text" id="login" placeholder="Enter your username or email" required><br>
-
-            <label for="password">Password:</label>
-            <input type="password" id="password" placeholder="Enter your password" required><br>
-
-            <button type="submit" onclick="sub()">Sign In</button>
-        </form>
-        <p>Don’t have an account? <a href="./signup.html">Sign Up</a></p>
+  <!-- Navbar -->
+  <nav class="bg-white shadow-md p-4 fixed w-full top-0 left-0 z-10">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-blue-600">SwiftData</h1>
+      <a href="signin.html" class="text-blue-600 font-semibold hover:underline">Login</a>
     </div>
+  </nav>
 
+  <!-- Hero Section -->
+  <section class="flex flex-col items-center justify-center min-h-screen text-center px-4 pt-20">
+    <h1 class="text-4xl md:text-5xl font-bold mb-4 text-blue-700">Affordable Data & Airtime in Seconds</h1>
+    <p class="max-w-xl text-gray-600 mb-6">
+      SwiftData helps you buy data, airtime, and utility bills instantly with a simple click.
+      Enjoy fast, secure, and reliable transactions 24/7.
+    </p>
+    <a href="signup.html" class="bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition">
+      Register Now
+    </a>
+  </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        document.getElementById("signinForm").addEventListener("submit", function(event) {
-            event.preventDefault();
+  <!-- About Section -->
+  <section class="bg-white py-12 px-6 text-center">
+    <h2 class="text-3xl font-bold text-blue-700 mb-4">Why Choose SwiftData?</h2>
+    <p class="max-w-2xl mx-auto text-gray-600">
+      We offer the best prices for all network data bundles in Nigeria. Whether MTN, Glo, Airtel, or 9mobile,
+      you get instant delivery and reliable support — always.
+    </p>
+  </section>
 
-            let login = document.getElementById("login").value.trim();
-            let password = document.getElementById("password").value.trim();
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-6 text-center">
+    <p>&copy; <span id="year"></span> SwiftData. All rights reserved.</p>
+  </footer>
 
-            // Get saved user from localStorage
-            let savedUser = JSON.parse(localStorage.getItem("user"));
-
-            if (
-                savedUser &&
-                (savedUser.email === login || savedUser.username === login) &&
-                savedUser.password === password
-            ) {
-                Swal.fire({ icon:'success', title:'Welcome', text:'You have been logged in.' })
-            .then(()=>{
-             localStorage.setItem('loggedIn','false');
-            window.location.href = 'home.html';
-            }) 
-            } else {
-                // alert("Invalid username/email or password!");
-                Swal.fire({ icon:'warning', title:'Error', text:'Invalid Username or Password.' })
-            }
-        });
-
-        
-    </script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>

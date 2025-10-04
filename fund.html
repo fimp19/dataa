@@ -77,7 +77,7 @@
       let savedUser = JSON.parse(localStorage.getItem("user"));
       if (!savedUser) {
         Swal.fire("Error", "No user session found. Please sign in again.", "error")
-          .then(() => window.location.href = "index.html");
+          .then(() => window.location.href = "signin.html");
         return;
       }
 

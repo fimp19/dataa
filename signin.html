@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwiftData - Sign In</title>
+    <link rel="stylesheet" href="./signin.css">
+    <link rel="shortcut icon" href="./image/ChatGPT_Image_Sep_7__2025__12_42_12_PM-removebg-preview (1).png" type="image/x-icon">
+</head>
+<body>
+    <div class="mother">
+        <div class="image">
+            <img style="width: 350px;" src="./image/ChatGPT_Image_Sep_7__2025__12_42_12_PM-removebg-preview (1).png" alt="Logo">
+        </div>
+
+        <form id="signinForm">
+            <label for="login">Username or Email:</label>
+            <input type="text" id="login" placeholder="Enter your username or email" required><br>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="Enter your password" required><br>
+
+            <button type="submit" onclick="sub()">Sign In</button>
+        </form>
+        <p>Don’t have an account? <a href="./signup.html">Sign Up</a></p>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.getElementById("signinForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let login = document.getElementById("login").value.trim();
+            let password = document.getElementById("password").value.trim();
+
+            // Get saved user from localStorage
+            let savedUser = JSON.parse(localStorage.getItem("user"));
+
+            if (
+                savedUser &&
+                (savedUser.email === login || savedUser.username === login) &&
+                savedUser.password === password
+            ) {
+                Swal.fire({ icon:'success', title:'Welcome', text:'You have been logged in.' })
+            .then(()=>{
+             localStorage.setItem('loggedIn','false');
+            window.location.href = 'home.html';
+            }) 
+            } else {
+                // alert("Invalid username/email or password!");
+                Swal.fire({ icon:'warning', title:'Error', text:'Invalid Username or Password.' })
+            }
+        });
+
+        
+    </script>
+</body>
+</html>

@@ -9,11 +9,8 @@
 </head>
 <body>
     <div class="mother">
-        <div class="image">
-            <img style="width: 350px;" src="./image/ChatGPT_Image_Sep_7__2025__12_42_12_PM-removebg-preview (1).png" alt="Logo">
-        </div>
-
-        <h2>Register on SwiftData</h2>
+        
+            <img style="width: 300px;" src="./image/ChatGPT_Image_Sep_7__2025__12_42_12_PM-removebg-preview (1).png" alt="Logo">
 
         <form id="signupForm">
             <label for="fullname">Full Name:</label>
@@ -38,7 +35,7 @@
 
             <button type="submit">Create Account</button>
         </form>
-        <p>Already have an account? <a href="./index.html">Sign in</a></p>
+        <p>Already have an account? <a href="./signin.html">Sign in</a></p>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -72,7 +69,7 @@
            Swal.fire({ icon:'success', title:'Congratulations', text:'Account Successfully Created.' })
             .then(()=>{
             
-            window.location.href = 'index.html';
+            window.location.href = 'home.html';
             }) 
         });
 
