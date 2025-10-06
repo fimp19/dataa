@@ -9,21 +9,23 @@
 
   <!-- Facebook Pixel -->
   <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window,document,'script',
+    !(function(f,b,e,v,n,t,s){
+      if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)
+    })(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '844371714689811');  // 🔹PIXEL_ID
+    fbq('init', '844371714689811'); 
     fbq('track', 'PageView');
   </script>
   <noscript>
-    <img height="1" width="1" 
-      src="https://www.facebook.com/tr?id=844371714689811&ev=PageView&noscript=1"/>
+    <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=844371714689811&ev=PageView&noscript=1"/>
   </noscript>
+  <!-- End Facebook Pixel -->
 </head>
 
 <body>
@@ -53,20 +55,20 @@
 
       <button type="submit">Create Account</button>
     </form>
+
     <p>Already have an account? <a href="./signin.html">Sign in</a></p>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-  <!-- Firebase SDK -->
+  
+  <!-- Firebase Signup Script -->
   <script type="module">
-    // Import Firebase
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
     import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
-    // 🔹 Replace with your Firebase config
+    // 🔹 Your Firebase Config (replace with your real config)
     const firebaseConfig = {
-     apiKey: "AIzaSyCRhd-QNqrZr245CKv7EFekhDxyjr5X6XM",
+      apiKey: "AIzaSyCRhd-QNqrZr245CKv7EFekhDxyjr5X6XM",
   authDomain: "swiftdata-d849e.firebaseapp.com",
   projectId: "swiftdata-d849e",
   storageBucket: "swiftdata-d849e.firebasestorage.app",
@@ -75,7 +77,6 @@
   measurementId: "G-KM9PM5ZHKP"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
@@ -101,7 +102,8 @@
       }
 
       try {
-        await addDoc(collection(db, "users"), {
+        // 🔹 Save user to Firestore
+        const docRef = await addDoc(collection(db, "users"), {
           fullname,
           username,
           email,
@@ -110,7 +112,14 @@
           createdAt: new Date()
         });
 
-        fbq('track', 'CompleteRegistration'); // 🔹 Facebook Pixel conversion event
+        // 🔹 Save login session locally
+        localStorage.setItem("loggedInUser", JSON.stringify({
+          id: docRef.id,
+          email: email,
+          fullname: fullname
+        }));
+
+        fbq('track', 'CompleteRegistration'); // Facebook Pixel event
 
         Swal.fire({
           icon: 'success',
@@ -125,6 +134,14 @@
         console.error("Error adding document: ", error);
       }
     });
+
+    
+  localStorage.setItem("loggedInUser", JSON.stringify({
+  id: docRef.id,
+  email: email,
+  fullname: fullname
+}));
+
   </script>
 </body>
 </html>
