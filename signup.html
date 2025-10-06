@@ -58,90 +58,93 @@
 
     <p>Already have an account? <a href="./signin.html">Sign in</a></p>
   </div>
-
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  
-  <!-- Firebase Signup Script -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
-    // 🔹 Your Firebase Config (replace with your real config)
-    const firebaseConfig = {
-      apiKey: "AIzaSyCRhd-QNqrZr245CKv7EFekhDxyjr5X6XM",
-  authDomain: "swiftdata-d849e.firebaseapp.com",
-  projectId: "swiftdata-d849e",
-  storageBucket: "swiftdata-d849e.firebasestorage.app",
-  messagingSenderId: "304415500541",
-  appId: "1:304415500541:web:23b524f7e13b5ac3a5f694",
-  measurementId: "G-KM9PM5ZHKP"
-    };
+  // 🔹 Firebase Config
+  const firebaseConfig = {
+    apiKey: "AIzaSyCRhd-QNqrZr245CKv7EFekhDxyjr5X6XM",
+    authDomain: "swiftdata-d849e.firebaseapp.com",
+    projectId: "swiftdata-d849e",
+    storageBucket: "swiftdata-d849e.firebasestorage.app",
+    messagingSenderId: "304415500541",
+    appId: "1:304415500541:web:23b524f7e13b5ac3a5f694",
+    measurementId: "G-KM9PM5ZHKP"
+  };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
-    const form = document.getElementById('signupForm');
-    const password = document.getElementById('password');
-    const confirmPassword = document.getElementById('confirm-password');
-    const errorMsg = document.getElementById('errorMsg');
+  const form = document.getElementById('signupForm');
+  const password = document.getElementById('password');
+  const confirmPassword = document.getElementById('confirm-password');
+  const errorMsg = document.getElementById('errorMsg');
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-      const fullname = document.getElementById("fullname").value.trim();
-      const username = document.getElementById("username").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const phone = document.getElementById("phone").value.trim();
-      const pass = password.value;
+    const fullname = document.getElementById("fullname").value.trim();
+    const username = document.getElementById("username").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const pass = password.value;
 
-      if (pass !== confirmPassword.value) {
-        errorMsg.style.display = 'block';
-        return;
-      } else {
-        errorMsg.style.display = 'none';
-      }
+    if (pass !== confirmPassword.value) {
+      errorMsg.style.display = 'block';
+      return;
+    } else {
+      errorMsg.style.display = 'none';
+    }
 
-      try {
-        // 🔹 Save user to Firestore
-        const docRef = await addDoc(collection(db, "users"), {
-          fullname,
-          username,
-          email,
-          phone,
-          password: pass,
-          createdAt: new Date()
-        });
+    try {
+      // 🔹 Save user in Firestore
+      const docRef = await addDoc(collection(db, "users"), {
+        fullname,
+        username,
+        email,
+        phone,
+        password: pass,
+        balance: 0,
+        hasLoggedIn: false,
+        createdAt: new Date()
+      });
 
-        // 🔹 Save login session locally
-        localStorage.setItem("loggedInUser", JSON.stringify({
-          id: docRef.id,
-          email: email,
-          fullname: fullname
-        }));
+      // 🔹 Save user in localStorage (for login session)
+      const userData = {
+        id: docRef.id,
+        fullname,
+        username,
+        email,
+        phone,
+        balance: 0,
+        hasLoggedIn: false
+      };
+      localStorage.setItem("user", JSON.stringify(userData));
 
-        fbq('track', 'CompleteRegistration'); // Facebook Pixel event
+      // 🔹 Track Pixel
+      fbq('track', 'CompleteRegistration');
 
-        Swal.fire({
-          icon: 'success',
-          title: 'Congratulations',
-          text: 'Account Successfully Created!'
-        }).then(() => {
-          window.location.href = 'home.html';
-        });
+      // 🔹 Success message and redirect
+      Swal.fire({
+        icon: 'success',
+        title: 'Account Created Successfully',
+        text: 'Welcome to SwiftData!'
+      }).then(() => {
+        window.location.href = 'home.html';
+      });
 
-      } catch (error) {
-        Swal.fire({ icon: 'error', title: 'Error', text: 'Signup failed. Try again!' });
-        console.error("Error adding document: ", error);
-      }
-    });
+    } catch (error) {
+      console.error("Error adding user: ", error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Signup failed. Try again!'
+      });
+    }
+  });
+</script>
 
-    
-  localStorage.setItem("loggedInUser", JSON.stringify({
-  id: docRef.id,
-  email: email,
-  fullname: fullname
-}));
-
-  </script>
 </body>
 </html>

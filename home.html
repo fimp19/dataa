@@ -113,73 +113,51 @@
  
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script>
-    // Get saved user from localStorage
-    let savedUser = JSON.parse(localStorage.getItem("user"));
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  let user = JSON.parse(localStorage.getItem("user"));
 
-    if (savedUser) {
-      document.getElementById("greeting").textContent =" " + "Hello, " + savedUser.username ;
-    //   document.getElementById("details").textContent = "Phone umber: " + savedUser.phone;
-    } else {
-      window.location.href = "signin.html"; // redirect if not logged in
-    }
-
-  // Logout function
-    function logout(){
-      Swal.fire({ icon:'success', title:'Logged out', text:'You have been signed out.' })
-        .then(()=>{
-          localStorage.setItem('loggedIn','false');
-          window.location.href = 'signin.html';
-        })};
-
-    let user = JSON.parse(localStorage.getItem("user"));
-
+  // ✅ If no user found, redirect to sign in
   if (!user) {
-    // alert("No user found. Please sign in again.");
-    Swal.fire("Title", "Your message here", "success");
     window.location.href = "signin.html";
-  } else {
-    // Show balance (default 0 if not set)
-    document.getElementById("walletBalance").innerText = `₦ ${user.balance || 0}.00`;
+    return;
   }
 
-  // Fund Wallet simulation
-  // function fundWallet() {
-  //   let amount = prompt("Enter amount to fund:");
-  //   amount = parseInt(amount);
+  // ✅ Display greeting and wallet balance
+  document.getElementById("greeting").textContent = "Hello, " + (user.username || "User");
+  document.getElementById("walletBalance").innerText = `₦ ${user.balance || 0}.00`;
 
-  //   if (!amount || amount <= 0) {
-  //     alert("Invalid amount.");
-  //     return;
-  //   }
+  // ✅ Welcome message only on first login
+  if (!user.hasLoggedIn) {
+    Swal.fire({
+      icon: 'success',
+      text: `Hello ${user.username || "User"}, As a new user, you have received an 8GB bonus! It will be added on your first purchase.`,
+      confirmButtonText: 'Continue'
+    }).then(() => {
+      Swal.fire({
+        icon: 'success',
+        text: 'You will also get ₦450 for each person you invite to register through your link!',
+        confirmButtonText: 'Got it'
+      });
+    });
 
-  //   // Update user balance
-  //   if (!user.balance) user.balance = 0;
-  //   user.balance += amount;
+    user.hasLoggedIn = true;
+    localStorage.setItem("user", JSON.stringify(user));
+  }
 
-  //   // Save back to localStorage
-  //   localStorage.setItem("user", JSON.stringify(user));
+  // ✅ Logout function
+  window.logout = function() {
+    Swal.fire({
+      icon: 'success',
+      title: 'Logged out',
+      text: 'You have been signed out.'
+    }).then(() => {
+      localStorage.removeItem('user');
+      window.location.href = 'signin.html';
+    });
+  };
 
-  //   // Update UI
-  //   document.getElementById("walletBalance").innerText = `₦ ${user.balance}.00`;
-
-  //   alert(`₦${amount} added to your wallet successfully!`);
-    
-  // }
-
-  
-  // Fund Wallet onclick
-  // document.getElementById("btn").addEventListener("click", () => {
-  //   let amount = prompt("Enter amount you want to fund:");
-
-  //   if (amount && !isNaN(amount) && amount > 0) {
-  //     // Redirect to NEW payment page with amount
-  //     window.location.href = `fund.html?amount=${amount}`;
-  //   } else {
-  //     alert("Please enter a valid amount.");
-  //   }
-  // });
-  // Modal logic
+  // ✅ Fund Wallet modal logic
   let modal = document.getElementById("fundModal");
   let openBtn = document.getElementById("btn");
   let closeBtn = document.querySelector(".close");
@@ -188,7 +166,6 @@
   openBtn.onclick = () => modal.style.display = "flex";
   closeBtn.onclick = () => modal.style.display = "none";
 
-  // Proceed to payment
   proceedBtn.onclick = () => {
     let amount = document.getElementById("fundAmount").value;
     if (amount && !isNaN(amount) && amount > 0) {
@@ -198,44 +175,11 @@
     }
   };
 
-  // Close modal when clicking outside
   window.onclick = (event) => {
     if (event.target === modal) modal.style.display = "none";
   };
-
-  // --------------------------------
-  document.addEventListener("DOMContentLoaded", () => {
-    let user = JSON.parse(localStorage.getItem("user")) || null;
-
-    if (!user) {
-      window.location.href = "signin.html";
-      return;
-    }
-
-    // Check if first login
-    if (!user.hasLoggedIn) {
-      // Show SweetAlert welcome message
-      Swal.fire({
-        icon: 'success',
-        text: `Hello ${user.username || "User"}, As a new user, you have recieved a 8GB bonus! it will be added on your first purchase`,
-        confirmButtonText: 'Continue'
-      })
-      .then(() => {
-        // Second message after first is confirmed
-        Swal.fire({
-          icon: 'success',
-          text: 'You will also get ₦450 for each person you invite to register through your link!',
-          confirmButtonText: 'Got it'
-        });
 });
-      // Update user so it won’t show again
-      user.hasLoggedIn = true;
-      localStorage.setItem("user", JSON.stringify(user));
-    }
-  });
+</script>
 
-
-
-  </script>
 </body>
 </html>
